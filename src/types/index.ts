@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
 export enum VehicleType {
-MOTORSYCLE = "motorsycle",
-CAR = "car",
-VAN = "van"
+MOTORSYCLE = 1,
+CAR = 2,
+VAN = 3
 }
 
 export enum ParkingSpotType {
-    MOTORCYCLE = "motorsycle",
-    COMPACT = "compact",
-    LARGE = "larg"
+    MOTORCYCLE = 1,
+    COMPACT = 2,
+    LARGE = 3
 }
 
 // export enum ReservationStatus {

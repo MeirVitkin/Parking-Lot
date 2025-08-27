@@ -1,6 +1,6 @@
 import { ParkinSpotRepository } from "../repositioies/ParkingSpotRepository";
 import { ReservationRepository } from "../repositioies/ReservationRepository";
-import { ICreateParkingSpot, IGetSpotReq, IParkingSpot, IReservationResponce, ParkingSpotType, VehicleType } from "../types";
+import { ICreateParkingSpot, IGetSpotReq, IParkingSpot, ParkingSpotType, VehicleType } from "../types";
 
 
 export class ParkingSpotService {
@@ -12,7 +12,7 @@ export class ParkingSpotService {
         this.reservationRepo = new ReservationRepository();
     }
 
-    async createParkingSpot(spotData: ICreateParkingSpot): Promise<ICreateParkingSpot> {
+    async createParkingSpot(spotData: ICreateParkingSpot): Promise<IParkingSpot> {
         try{
             return await this.parkingRepo.create(spotData);
         }catch(error){
@@ -27,17 +27,15 @@ export class ParkingSpotService {
             switch (vehicleData.vehicle_type) {
                 case VehicleType.MOTORSYCLE:
                     spot = await this.parkingRepo.getSpot(ParkingSpotType.MOTORCYCLE);
-                    if(!spot){ spot = await this.parkingRepo.getSpot(ParkingSpotType.COMPACT); }
-                    if(!spot){ spot = await this.parkingRepo.getSpot(ParkingSpotType.LARGE); }
                     break;
                 case VehicleType.CAR:
-                        spot = await this.parkingRepo.getSpot(ParkingSpotType.COMPACT);
-                         if(!spot){ spot = await this.parkingRepo.getSpot(ParkingSpotType.LARGE); }
+                    spot = await this.parkingRepo.getSpot(ParkingSpotType.COMPACT);
                      break;
                 default:
                       spot = await this.parkingRepo.getSpot(ParkingSpotType.LARGE);
                     break;
-            }
+            
+                }
 
             if(spot){
                const reservation  = await this.reservationRepo.create(vehicleData);
