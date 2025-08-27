@@ -42,7 +42,7 @@ export class ParkinSpotRepository {
     
     async getSpot(size: ParkingSpotType): Promise<IParkingSpot | null> {
         try{
-           return await ParkinSpot.findOne({ occupied_by: null,size: { $gte: size }  }).sort({ size: -1 });
+           return await ParkinSpot.findOne({ occupied_by: null,size: { $gte: size }  }).sort({ size: 1 });
         }catch(error){
             console.error(error);
             throw error;
